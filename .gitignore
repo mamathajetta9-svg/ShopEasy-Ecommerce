@@ -7,5 +7,6 @@ db.sqlite3
 staticfiles/
 .idea/
 .vscode/
-eccomerce/
+eccomerce/eccomerce/
 
+eccomerce/manage.py
