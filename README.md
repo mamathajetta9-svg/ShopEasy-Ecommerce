@@ -33,3 +33,34 @@ ShopEasy is an ecommerce website developed using Python, Django, MySQL, HTML, CS
 
 ## Developer
 Mamatha Jetta
+
+
+
+## 📸 Project Screenshots
+
+### Home Page
+![Home Page](screenshots/home.png)
+
+### Login Page
+![Login Page](screenshots/login.png)
+
+### Registration Page
+![Registration Page](screenshots/registration.png)
+
+### Product Details
+![Product Details](screenshots/product-details.png)
+
+### my Cart
+![my Cart](screenshots/my-cart.png)
+
+### Wishlist
+![Wishlist](screenshots/wishlist.png)
+
+### Checkout
+![Checkout](screenshots/checkout.png)
+
+### My Orders
+![My Orders](screenshots/my-orders.png)
+
+### Order Details
+![Order Details](screenshots/order-details.png)
