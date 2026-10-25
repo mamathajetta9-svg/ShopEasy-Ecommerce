@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders | ShopEasy</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+        }
+
+        .navbar {
+            background: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: #334155;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            margin-bottom: 8px;
+            font-size: 30px;
+        }
+
+        .page-header p {
+            color: #64748b;
+            margin: 0;
+        }
+
+        .order-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 22px;
+            border-radius: 14px;
+            border: 1px solid #e8edf5;
+            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .order-header h2 {
+            margin: 0 0 7px;
+            font-size: 20px;
+        }
+
+        .order-date {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 8px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-confirmed {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .status-shipped {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+
+        .status-delivered {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-cancelled {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .section-title {
+            font-size: 16px;
+            margin: 20px 0 12px;
+        }
+
+        .product-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .product-name {
+            font-weight: 600;
+            overflow-wrap: anywhere;
+        }
+
+        .product-quantity {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .product-price {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .total-label {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .total-amount {
+            color: #2563eb;
+            font-size: 23px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .details-btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+
+        .details-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .empty-state {
+            background: white;
+            text-align: center;
+            padding: 50px 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+        }
+
+        .empty-state h2 {
+            margin-top: 0;
+        }
+
+        .empty-state p {
+            color: #64748b;
+            margin-bottom: 22px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 5px 0 30px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .container {
+                padding: 0 14px;
+                margin-top: 25px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .order-card {
+                padding: 18px;
+            }
+
+            .order-footer {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .details-btn {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">ShopEasy</a>
+        <a href="/" class="nav-link">Continue Shopping</a>
+    </nav>
+
+    <main class="container">
+
+        <div class="page-header">
+            <h1>My Orders</h1>
+            <p>Track your orders and view your purchase details.</p>
+        </div>
+
+        {% for order in orders %}
+
+            <div class="order-card">
+
+                <div class="order-header">
+                    <div>
+                        <h2>Order #{{ order.id }}</h2>
+
+                        <div class="order-date">
+                            Placed on {{ order.created_at|date:"d M Y, h:i A" }}
+                        </div>
+                    </div>
+
+                    <span class="status
+                        {% if order.status == 'Pending' %}status-pending
+                        {% elif order.status == 'Confirmed' %}status-confirmed
+                        {% elif order.status == 'Shipped' %}status-shipped
+                        {% elif order.status == 'Delivered' %}status-delivered
+                        {% elif order.status == 'Cancelled' %}status-cancelled
+                        {% endif %}">
+                        {{ order.status }}
+                    </span>
+                </div>
+
+                <h3 class="section-title">Ordered Products</h3>
+
+                {% for item in order.items.all %}
+                    <div class="product-row">
+                        <div>
+                            <div class="product-name">
+                                {{ item.product_name }}
+                            </div>
+
+                            <div class="product-quantity">
+                                Quantity: {{ item.quantity }}
+                            </div>
+                        </div>
+
+                        <div class="product-price">
+                            ₹{{ item.price|floatformat:2 }}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="order-footer">
+                    <div>
+                        <div class="total-label">Order Total</div>
+                        <div class="total-amount">
+                            ₹{{ order.total_amount|floatformat:2 }}
+                        </div>
+                    </div>
+
+                    <a
+                        href="{% url 'order_detail' order.id %}"
+                        class="details-btn"
+                    >
+                        View Order Details →
+                    </a>
+                </div>
+
+            </div>
+
+        {% empty %}
+
+            <div class="empty-state">
+                <h2>No Orders Yet</h2>
+                <p>You haven't placed any orders. Explore our products to get started.</p>
+
+                <a href="/" class="details-btn">
+                    Start Shopping
+                </a>
+            </div>
+
+        {% endfor %}
+
+        <a href="/" class="back-link">← Back to Shop</a>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | ShopEasy</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+        }
+
+        .navbar {
+            background: #ffffff;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: #334155;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .page-heading {
+            margin-bottom: 25px;
+        }
+
+        .page-heading h1 {
+            margin-bottom: 8px;
+            font-size: 30px;
+        }
+
+        .page-heading p {
+            color: #64748b;
+            margin: 0;
+        }
+
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 21px;
+            margin: 0 0 22px;
+            color: #0f172a;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            background: #ffffff;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea {
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .item-name {
+            font-weight: 600;
+            margin-bottom: 7px;
+            overflow-wrap: anywhere;
+        }
+
+        .item-quantity {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .item-price {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 22px;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .total-price {
+            color: #2563eb;
+        }
+
+        .place-order-btn {
+            display: block;
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .place-order-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .place-order-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .secure-note {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 10px 0 30px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover,
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 750px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .container {
+                margin-top: 25px;
+                padding: 0 15px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .page-heading h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+    <a href="/" class="logo">ShopEasy</a>
+        <a href="{% url 'cart_view' %}" class="nav-link">← Back to Cart</a>
+    </nav>
+
+    <main class="container">
+
+        <div class="page-heading">
+            <h1>Checkout</h1>
+            <p>Enter your delivery details to place your order.</p>
+        </div>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <div class="checkout-layout">
+
+            <!-- Delivery Information -->
+            <section class="card">
+                <h2>Delivery Information</h2>
+
+                <form method="POST" id="checkout-form">
+                    {% csrf_token %}
+
+                    <input
+                        type="hidden"
+                        name="checkout_token"
+                        value="{{ checkout_token }}"
+                    >
+
+                    <div class="form-group">
+                        <label for="full_name">Full Name</label>
+                        <input
+                            type="text"
+                            id="full_name"
+                            name="full_name"
+                            placeholder="Enter your full name"
+                            maxlength="150"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="10-digit mobile number"
+                            pattern="[0-9]{10}"
+                            maxlength="10"
+                            minlength="10"
+                            inputmode="numeric"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">House / Flat / Street Address</label>
+                        <textarea
+                            id="address"
+                            name="address"
+                            placeholder="Enter your house number, street and area"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input
+                                type="text"
+                                id="city"
+                                name="city"
+                                placeholder="Enter city"
+                                maxlength="100"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input
+                                type="text"
+                                id="state"
+                                name="state"
+                                placeholder="Enter state"
+                                maxlength="100"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pincode">PIN Code</label>
+                        <input
+                            type="text"
+                            id="pincode"
+                            name="pincode"
+                            placeholder="6-digit PIN code"
+                            pattern="[0-9]{6}"
+                            minlength="6"
+                            maxlength="6"
+                            inputmode="numeric"
+                            required
+                        >
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="place-order-btn"
+                        id="place-order-btn"
+                    >
+                        Place Order
+                    </button>
+
+                    <p class="secure-note">
+                        Please check your delivery details before placing your order.
+                    </p>
+                </form>
+            </section>
+
+            <!-- Order Summary -->
+            <aside class="card">
+                <h2>Order Summary</h2>
+
+                {% for item in items %}
+                    <div class="order-item">
+                        <div>
+                            <div class="item-name">
+                                {{ item.product.name }}
+                            </div>
+
+                            <div class="item-quantity">
+                                Quantity: {{ item.quantity }}
+                            </div>
+                        </div>
+
+                        <div class="item-price">
+                            ₹{{ item.subtotal|floatformat:2 }}
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>Your cart is empty.</p>
+                {% endfor %}
+
+                <div class="total-row">
+                    <span>Total</span>
+                    <span class="total-price">
+                        ₹{{ total|floatformat:2 }}
+                    </span>
+                </div>
+
+                <p class="secure-note">
+                    Your order will initially have Pending status.
+                    You can check updates in My Orders.
+                </p>
+            </aside>
+
+        </div>
+
+        <a href="{% url 'cart_view' %}" class="back-link">
+            ← Continue Shopping
+        </a>
+
+    </main>
+
+    <script>
+        const form = document.getElementById('checkout-form');
+        const button = document.getElementById('place-order-btn');
+
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                return;
+            }
+
+            if (button.disabled) {
+                event.preventDefault();
+                return;
+            }
+
+            button.disabled = true;
+            button.textContent = 'Processing Order...';
+        });
+    </script>
+
+</body>
+</html>

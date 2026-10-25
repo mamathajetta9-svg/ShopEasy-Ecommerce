@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Placed | ShopEasy</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+        }
+
+        .navbar {
+            background: #172554;
+            padding: 18px 7%;
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 65px auto;
+            padding: 0 20px;
+        }
+
+        .success-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(15, 23, 42, 0.07);
+        }
+
+        .success-icon {
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 22px;
+            border-radius: 50%;
+            background: #dcfce7;
+            color: #15803d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 0 0 12px;
+            color: #0f172a;
+        }
+
+        .message {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .order-info {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #64748b;
+        }
+
+        .info-value {
+            font-weight: bold;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .status {
+            color: #92400e;
+            background: #fef3c7;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+        }
+
+        @media (max-width: 500px) {
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .container {
+                margin: 35px auto;
+                padding: 0 14px;
+            }
+
+            .success-card {
+                padding: 30px 18px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="logo">ShopEasy</a>
+    </nav>
+
+    <main class="container">
+        <section class="success-card">
+
+            <div class="success-icon" aria-label="Success">✓</div>
+
+            <h1>Thank You for Your Order!</h1>
+
+            <p class="message">
+                Your order has been placed successfully.
+                You can view your order details and track its status
+                from the My Orders page.
+            </p>
+
+            <div class="order-info">
+
+                <div class="info-row">
+                    <span class="info-label">Order ID</span>
+                    <span class="info-value">#{{ order.id }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Order Total</span>
+                    <span class="info-value">
+                        ₹{{ order.total_amount|floatformat:2 }}
+                    </span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Order Status</span>
+                    <span class="info-value">
+                        <span class="status">{{ order.status }}</span>
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="buttons">
+                <a href="{% url 'orders' %}" class="btn btn-primary">
+                    View My Orders
+                </a>
+
+                <a href="{% url 'home' %}" class="btn btn-secondary">
+                    Continue Shopping
+                </a>
+            </div>
+
+        </section>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart | ShopEasy</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 35px 18px;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(23, 37, 84, 0.05);
+        }
+
+        .page-heading {
+            margin: 0 0 10px;
+            color: #172554;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            margin: 0 0 22px;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .continue-shopping {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .continue-shopping:hover {
+            text-decoration: underline;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 22px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            min-width: 0;
+        }
+
+        .cart-product-image {
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+            object-fit: contain;
+            object-position: center;
+            padding: 7px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 9px;
+        }
+
+        .product-details {
+            min-width: 0;
+        }
+
+        .product-details h3 {
+            margin: 0 0 9px;
+            color: #172554;
+            font-size: 17px;
+            line-height: 1.4;
+        }
+
+        .price {
+            margin: 0 0 12px;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .quantity-controls form,
+        .remove-form {
+            margin: 0;
+        }
+
+        .qty-button {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border: 1px solid #bfdbfe;
+            border-radius: 7px;
+            background: #eff6ff;
+            color: #172554;
+            font-size: 19px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .qty-button:hover {
+            background: #dbeafe;
+        }
+
+        .quantity {
+            min-width: 18px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .subtotal {
+            margin: 10px 0 0;
+            color: #047857;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .remove-button {
+            padding: 9px 13px;
+            border: 1px solid #fecaca;
+            border-radius: 7px;
+            background: #fff1f2;
+            color: #be123c;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .remove-button:hover {
+            background: #ffe4e6;
+        }
+
+        .cart-summary {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .total {
+            margin: 0;
+            color: #172554;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .total-note {
+            margin: 8px 0 0;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .checkout-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 13px 22px;
+            border: none;
+            border-radius: 7px;
+            background: #172554;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .checkout-button:hover {
+            background: #243b75;
+        }
+
+        .empty-cart {
+            padding: 40px 15px;
+            text-align: center;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .empty-cart h2 {
+            margin: 0 0 10px;
+            color: #172554;
+            font-size: 21px;
+        }
+
+        .empty-cart p {
+            margin: 0 0 20px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .shop-button {
+            display: inline-block;
+            padding: 11px 18px;
+            border-radius: 7px;
+            background: #172554;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .shop-button:hover {
+            background: #243b75;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 18px 10px;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            .page-heading {
+                font-size: 24px;
+            }
+
+            .cart-item {
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .product-info {
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .cart-product-image {
+                width: 75px;
+                height: 85px;
+            }
+
+            .product-details h3 {
+                font-size: 14px;
+            }
+
+            .remove-button {
+                padding: 7px 9px;
+                font-size: 12px;
+            }
+
+            .total {
+                font-size: 21px;
+            }
+
+            .checkout-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1 class="page-heading">My Shopping Cart</h1>
+    <p class="subtitle">Review your items before proceeding to checkout.</p>
+
+    <a href="{% url 'home' %}" class="continue-shopping">
+        ← Continue Shopping
+    </a>
+
+    {% for item in items %}
+        <div class="cart-item">
+
+            <div class="product-info">
+
+                {% if item.product.image %}
+                    <img
+                        src="{{ item.product.image.url }}"
+                        alt="{{ item.product.name }}"
+                        class="cart-product-image"
+                    >
+                {% elif item.product.display_image_url %}
+                    <img
+                        src="{{ item.product.display_image_url }}"
+                        alt="{{ item.product.name }}"
+                        class="cart-product-image"
+                    >
+                {% endif %}
+
+                <div class="product-details">
+
+                    <h3>{{ item.product.name }}</h3>
+
+                    <p class="price">
+                        Price: ₹{{ item.product.price }}
+                    </p>
+
+                    <div class="quantity-controls">
+
+                        <form method="POST"
+                              action="{% url 'decrease_quantity' item.id %}">
+                            {% csrf_token %}
+                            <button class="qty-button"
+                                    type="submit"
+                                    aria-label="Decrease quantity">−</button>
+                        </form>
+
+                        <strong class="quantity">{{ item.quantity }}</strong>
+
+                        <form method="POST"
+                              action="{% url 'increase_quantity' item.id %}">
+                            {% csrf_token %}
+                            <button class="qty-button"
+                                    type="submit"
+                                    aria-label="Increase quantity">+</button>
+                        </form>
+
+                    </div>
+
+                    <p class="subtotal">
+                        Subtotal: ₹{{ item.subtotal }}
+                    </p>
+
+                </div>
+            </div>
+
+            <form method="POST"
+                  action="{% url 'remove_from_cart' item.id %}"
+                  class="remove-form">
+                {% csrf_token %}
+                <button class="remove-button" type="submit">
+                    Remove
+                </button>
+            </form>
+
+        </div>
+
+    {% empty %}
+
+        <div class="empty-cart">
+            <h2>Your cart is empty</h2>
+            <p>You haven't added any products to your cart yet.</p>
+            <a href="{% url 'home' %}" class="shop-button">
+                Start Shopping
+            </a>
+        </div>
+
+    {% endfor %}
+
+    {% if items %}
+        <div class="cart-summary">
+
+            <p class="total">Total: ₹{{ total }}</p>
+            <p class="total-note">Please review your order before checkout.</p>
+
+            <a href="{% url 'checkout' %}" class="checkout-button">
+                Proceed to Checkout →
+            </a>
+
+        </div>
+    {% endif %}
+
+</div>
+</body>
+</html>
